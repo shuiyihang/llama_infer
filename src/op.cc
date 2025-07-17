@@ -25,10 +25,11 @@ void rmsnorm_op(const Tensor &weight, const Tensor &input, Tensor &output) {
 
   // mean:1/N * (平方和)
   // as_scalar 获取单个元素矩阵的标量值 [1.2] ==> 1.2
-  // float rms_x = std::sqrt(arma::as_scalar(arma::mean(arma::pow(x, 2))));
-  float rms_x = arma::as_scalar(arma::mean(arma::pow(x, 2))) + eps;
+  float rms_x = std::sqrt(arma::as_scalar(arma::mean(arma::pow(x, 2))));
+  // float rms_x = arma::as_scalar(arma::mean(arma::pow(x, 2))) + eps;
   // %逐元素相乘
-  float rsqrt = 1.0f / (std::sqrt(rms_x));
+  // float rsqrt = 1.0f / (std::sqrt(rms_x));
+  float rsqrt = 1.0f / (rms_x + eps);
   o = w % (rsqrt * x);
 }
 

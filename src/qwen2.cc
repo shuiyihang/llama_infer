@@ -17,7 +17,7 @@ Qwen2Model::Qwen2Model(std::string ckpt_pth, std::string tokenizer_pth)
 
 void Qwen2Model::init() {
   load_model_from_file();
-  m_sampler = std::make_unique<GreedySampler>();
+  m_sampler = std::make_unique<SamplerDispatcher>(0.8f, 0.9f);
 }
 
 std::vector<int32_t> Qwen2Model::encode(std::string &prompt) { return m_encode_layer->encode(prompt); }
